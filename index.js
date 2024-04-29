@@ -67,6 +67,46 @@ async function run() {
       res.send(result)
     })
 
+    app.get('/myArtAndCraftList/:email',async(req,res)=>{
+      const findEmail= req.params.email
+      const query={userEmail:findEmail}
+      const cursor=craftCollection.find(query)
+      const result=await cursor.toArray()
+      res.send(result)
+    })
+
+    app.get('/updateCraft/:id',async(req,res)=>{
+      const id=req.params.id
+      const query={_id:new ObjectId(id)}
+      const result=await craftCollection.findOne(query)
+      res.send(result)
+    })
+
+    app.put('/updateCraft/:id',async(req,res)=>{
+      // for update (set data)
+      const id=req.params.id
+      const filter={_id:new ObjectId(id)}
+      const options = { upsert: true };
+      const updateCraft=req.body
+      const craft={
+        $set:{
+          itemName:updateCraft.itemName,
+          subCategory:updateCraft.subCategory,
+          shortDescription:updateCraft.shortDescription,
+          price:updateCraft.price,
+          rating:updateCraft.rating,
+          customization:updateCraft.customization,
+          time:updateCraft.time,
+          stockStatus:updateCraft.stockStatus,
+          photo:updateCraft.photo,
+        }
+      }
+      const result=await craftCollection.updateOne(filter,craft,options)
+      res.send(result)
+      console.log(updateCraft);
+    })
+
+
     app.post('/addCraftItem',async(req,res)=>{
       const newCraftItem=req.body;
       console.log(newCraftItem);
