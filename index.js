@@ -106,6 +106,13 @@ async function run() {
       console.log(updateCraft);
     })
 
+    app.delete('/myCraftList/:id',async(req,res)=>{
+      const id=req.params.id
+      const query={_id:new ObjectId(id)}
+      const result=await craftCollection.deleteOne(query)
+      res.send(result)
+    })
+
 
     app.post('/addCraftItem',async(req,res)=>{
       const newCraftItem=req.body;
