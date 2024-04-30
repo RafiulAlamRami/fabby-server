@@ -64,6 +64,16 @@ async function run() {
       res.send(result)
     })
 
+    app.get('/custom/:email/:cus',async(req,res)=>{
+      const cus= req.params.cus
+      const email=req.params.email
+      const query={customization:cus}
+      const options={userEmail:email}
+      const cursor=craftCollection.find(query,options)
+      const result=await cursor.toArray()
+      res.send(result)
+    })
+
     app.get('/allArtAndCraftItems',async(req,res)=>{
       const cursor=craftCollection.find()
       const result=await cursor.toArray()
