@@ -42,7 +42,7 @@ async function run() {
 
     app.get('/craftItemSection',async(req,res)=>{
 
-      const cursor=categoryCraftCollection.find()
+      const cursor=craftCollection.find()
       const result=await cursor.toArray()
       res.send(result)
 
@@ -50,10 +50,18 @@ async function run() {
 
     app.get('/categoryCraft',async(req,res)=>{
 
-      const cursor=craftCollection.find()
+      const cursor=categoryCraftCollection.find()
       const result=await cursor.toArray()
       res.send(result)
 
+    })
+
+    app.get('/subCategoryCraft/:sub',async(req,res)=>{
+      const sub= req.params.sub
+      const query={subCategory:sub}
+      const cursor=craftCollection.find(query)
+      const result=await cursor.toArray()
+      res.send(result)
     })
 
     app.get('/allArtAndCraftItems',async(req,res)=>{
