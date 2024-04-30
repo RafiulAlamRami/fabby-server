@@ -9,8 +9,7 @@ const app=express()
 app.use(cors())
 app.use(express.json())
 
-// fabby_user
-// mUBSwbtJGZWVxvt6
+
 
 
 
@@ -58,6 +57,7 @@ async function run() {
 
     app.get('/subCategoryCraft/:sub',async(req,res)=>{
       const sub= req.params.sub
+      // console.log(typeof sub);
       const query={subCategory:sub}
       const cursor=craftCollection.find(query)
       const result=await cursor.toArray()
