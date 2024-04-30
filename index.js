@@ -48,7 +48,13 @@ async function run() {
 
     })
 
-    
+    app.get('/categoryCraft',async(req,res)=>{
+
+      const cursor=craftCollection.find()
+      const result=await cursor.toArray()
+      res.send(result)
+
+    })
 
     app.get('/allArtAndCraftItems',async(req,res)=>{
       const cursor=craftCollection.find()
